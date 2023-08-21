@@ -1,5 +1,7 @@
 package com.sci.cs202.week03.test01;
 
+import java.util.Stack;
+
 public class Test01 {
 
   public static void main(String[] args) {
@@ -16,6 +18,9 @@ public class Test01 {
     linkedBox.removeFirst();
     linkedBox.addFirst(3);
     linkedBox.removeLast();
+    linkedBox.print();
+    System.out.println("\n**********");
+    linkedBox.reverse();
     linkedBox.print();
 
     System.out.println();
@@ -63,7 +68,10 @@ class LinkedBox {
   }
 
   public void removeFirst() {
-    if (sz > 0) {
+    if (sz < 2) {
+      head = tail = null;
+      sz = 0;
+    }else {
       head = head.next;
       head.previous = null;
       sz--;
@@ -84,6 +92,7 @@ class LinkedBox {
 //      sz--;
       tail = tail.previous;
       tail.next =null;
+      sz--;
     }
   }
 
@@ -94,7 +103,7 @@ class LinkedBox {
 //    }
     Box current = head;
     while (current != null) {
-      System.out.println(current.value);
+      System.out.print(current.value + " ");
       current = current.next;
     }
 
@@ -102,6 +111,25 @@ class LinkedBox {
 
   public int get(int idx) {
     return 0;
+  }
+
+  public void reverse() {
+    Stack<Integer> st = new Stack<Integer>();
+//    LinkedBox temp = new LinkedBox();// التانية
+    int[] arr = new int[sz];
+    int SIZE = sz;
+    for(int i = 0; i < SIZE; i++) {
+      arr[i] = this.getFirst();
+//      temp.addFirst(this.getFirst());
+      st.add(this.getFirst());
+      this.removeFirst();
+    }
+    for(int i = 0; i < SIZE; i++) {
+      this.addLast(arr[i]);
+//      this.addLast(st.pop());
+//      this.addLast(temp.getFirst());
+//      temp.removeFirst();
+    }
   }
 }
 
